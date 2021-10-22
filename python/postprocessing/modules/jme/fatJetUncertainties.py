@@ -642,6 +642,11 @@ class fatJetUncertaintiesProducer(Module):
                         jmstau21DDTDownVal = 0.990
                         jmstau21DDTUpVal = 1.010
                         self.jetSmearer.jmr_vals = [1.124, 1.208, 1.040]
+                    else:
+                        jmstau21DDTNomVal = 1.000  
+                        jmstau21DDTDownVal = 1.00
+                        jmstau21DDTUpVal = 1.000
+                        self.jetSmearer.jmr_vals = [1.00, 1.000, 1.000]
 
                     (jet_msdcorr_tau21DDT_jmrNomVal,
                      jet_msdcorr_tau21DDT_jmrUpVal,
