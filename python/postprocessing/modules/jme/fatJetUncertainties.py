@@ -277,9 +277,9 @@ class fatJetUncertaintiesProducer(Module):
                             lenVar=self.lenVar)
 
         if not self.isData:
-            self.out.branch("%s_msoftdrop_tau21DDT_nom" % self.jetBranchName,
-                            "F",
-                            lenVar=self.lenVar)
+            # self.out.branch("%s_msoftdrop_tau21DDT_nom" % self.jetBranchName,
+            #                 "F",
+            #                 lenVar=self.lenVar)
             for shift in ["Up", "Down"]:
                 for jerID in self.splitJERIDs:
                     self.out.branch("%s_pt_jer%s%s" %
@@ -303,10 +303,10 @@ class fatJetUncertaintiesProducer(Module):
                                         (self.jetBranchName, jerID, shift),
                                         "F",
                                         lenVar=self.lenVar)
-                        self.out.branch("%s_msoftdrop_tau21DDT_jer%s%s" %
-                                        (self.jetBranchName, jerID, shift),
-                                        "F",
-                                        lenVar=self.lenVar)
+                        # self.out.branch("%s_msoftdrop_tau21DDT_jer%s%s" %
+                        #                 (self.jetBranchName, jerID, shift),
+                        #                 "F",
+                        #                 lenVar=self.lenVar)
                     self.out.branch("%s_msoftdrop_jmr%s" %
                                     (self.jetBranchName, shift),
                                     "F",
@@ -315,14 +315,14 @@ class fatJetUncertaintiesProducer(Module):
                                     (self.jetBranchName, shift),
                                     "F",
                                     lenVar=self.lenVar)
-                    self.out.branch("%s_msoftdrop_tau21DDT_jmr%s" %
-                                    (self.jetBranchName, shift),
-                                    "F",
-                                    lenVar=self.lenVar)
-                    self.out.branch("%s_msoftdrop_tau21DDT_jms%s" %
-                                    (self.jetBranchName, shift),
-                                    "F",
-                                    lenVar=self.lenVar)
+                    # self.out.branch("%s_msoftdrop_tau21DDT_jmr%s" %
+                    #                 (self.jetBranchName, shift),
+                    #                 "F",
+                    #                 lenVar=self.lenVar)
+                    # self.out.branch("%s_msoftdrop_tau21DDT_jms%s" %
+                    #                 (self.jetBranchName, shift),
+                    #                 "F",
+                    #                 lenVar=self.lenVar)
 
                 for jesUncertainty in self.jesUncertainties:
                     self.out.branch(
@@ -412,18 +412,18 @@ class fatJetUncertaintiesProducer(Module):
             jets_msdcorr_jesDown = {}
             jets_msdcorr_jmsUp = []
             jets_msdcorr_jmsDown = []
-            jets_msdcorr_tau21DDT_nom = []
-            jets_msdcorr_tau21DDT_jerUp = {}
-            jets_msdcorr_tau21DDT_jerDown = {}
-            jets_msdcorr_tau21DDT_jmrUp = []
-            jets_msdcorr_tau21DDT_jmrDown = []
-            jets_msdcorr_tau21DDT_jmsUp = []
-            jets_msdcorr_tau21DDT_jmsDown = []
+            # jets_msdcorr_tau21DDT_nom = []
+            # jets_msdcorr_tau21DDT_jerUp = {}
+            # jets_msdcorr_tau21DDT_jerDown = {}
+            # jets_msdcorr_tau21DDT_jmrUp = []
+            # jets_msdcorr_tau21DDT_jmrDown = []
+            # jets_msdcorr_tau21DDT_jmsUp = []
+            # jets_msdcorr_tau21DDT_jmsDown = []
             for jerID in self.splitJERIDs:
                 jets_msdcorr_jerUp[jerID] = []
                 jets_msdcorr_jerDown[jerID] = []
-                jets_msdcorr_tau21DDT_jerUp[jerID] = []
-                jets_msdcorr_tau21DDT_jerDown[jerID] = []
+                # jets_msdcorr_tau21DDT_jerUp[jerID] = []
+                # jets_msdcorr_tau21DDT_jerDown[jerID] = []
             for jesUncertainty in self.jesUncertainties:
                 jets_msdcorr_jesUp[jesUncertainty] = []
                 jets_msdcorr_jesDown[jesUncertainty] = []
@@ -648,47 +648,47 @@ class fatJetUncertaintiesProducer(Module):
                         jmstau21DDTUpVal = 1.000
                         self.jetSmearer.jmr_vals = [1.00, 1.000, 1.000]
 
-                    (jet_msdcorr_tau21DDT_jmrNomVal,
-                     jet_msdcorr_tau21DDT_jmrUpVal,
-                     jet_msdcorr_tau21DDT_jmrDownVal
-                     ) = self.jetSmearer.getSmearValsM(
-                         groomedP4, genGroomedJet
-                     ) if groomedP4 is not None and genGroomedJet is not None else (0., 0., 0.)
+                    # (jet_msdcorr_tau21DDT_jmrNomVal,
+                    #  jet_msdcorr_tau21DDT_jmrUpVal,
+                    #  jet_msdcorr_tau21DDT_jmrDownVal
+                    #  ) = self.jetSmearer.getSmearValsM(
+                    #      groomedP4, genGroomedJet
+                    #  ) if groomedP4 is not None and genGroomedJet is not None else (0., 0., 0.)
 
-                    jet_msdcorr_tau21DDT_nom = jet_pt_jerNomVal * \
-                        jet_msdcorr_tau21DDT_jmrNomVal * jmstau21DDTNomVal * jet_msdcorr_raw
-                    jets_msdcorr_tau21DDT_nom.append(jet_msdcorr_tau21DDT_nom)
+                    # jet_msdcorr_tau21DDT_nom = jet_pt_jerNomVal * \
+                    #     jet_msdcorr_tau21DDT_jmrNomVal * jmstau21DDTNomVal * jet_msdcorr_raw
+                    # jets_msdcorr_tau21DDT_nom.append(jet_msdcorr_tau21DDT_nom)
 
-                    jet_msdcorr_tau21DDT_jerUp = {
-                        jerID: jet_msdcorr_tau21DDT_nom
-                        for jerID in self.splitJERIDs
-                    }
-                    jet_msdcorr_tau21DDT_jerDown = {
-                        jerID: jet_msdcorr_tau21DDT_nom
-                        for jerID in self.splitJERIDs
-                    }
-                    jet_msdcorr_tau21DDT_jerUp[thisJERID] = jet_pt_jerUpVal * \
-                        jet_msdcorr_tau21DDT_jmrNomVal * jmstau21DDTNomVal * jet_msdcorr_raw
-                    jet_msdcorr_tau21DDT_jerDown[thisJERID] = jet_pt_jerDownVal * \
-                        jet_msdcorr_tau21DDT_jmrNomVal * jmstau21DDTNomVal * jet_msdcorr_raw
-                    for jerID in self.splitJERIDs:
-                        jets_msdcorr_tau21DDT_jerUp[jerID].append(
-                            jet_msdcorr_tau21DDT_jerUp[jerID])
-                        jets_msdcorr_tau21DDT_jerDown[jerID].append(
-                            jet_msdcorr_tau21DDT_jerDown[jerID])
+                    # jet_msdcorr_tau21DDT_jerUp = {
+                    #     jerID: jet_msdcorr_tau21DDT_nom
+                    #     for jerID in self.splitJERIDs
+                    # }
+                    # jet_msdcorr_tau21DDT_jerDown = {
+                    #     jerID: jet_msdcorr_tau21DDT_nom
+                    #     for jerID in self.splitJERIDs
+                    # }
+                    # jet_msdcorr_tau21DDT_jerUp[thisJERID] = jet_pt_jerUpVal * \
+                    #     jet_msdcorr_tau21DDT_jmrNomVal * jmstau21DDTNomVal * jet_msdcorr_raw
+                    # jet_msdcorr_tau21DDT_jerDown[thisJERID] = jet_pt_jerDownVal * \
+                    #     jet_msdcorr_tau21DDT_jmrNomVal * jmstau21DDTNomVal * jet_msdcorr_raw
+                    # for jerID in self.splitJERIDs:
+                    #     jets_msdcorr_tau21DDT_jerUp[jerID].append(
+                    #         jet_msdcorr_tau21DDT_jerUp[jerID])
+                    #     jets_msdcorr_tau21DDT_jerDown[jerID].append(
+                    #         jet_msdcorr_tau21DDT_jerDown[jerID])
 
-                    jets_msdcorr_tau21DDT_jmrUp.append(
-                        jet_pt_jerNomVal * jet_msdcorr_tau21DDT_jmrUpVal *
-                        jmstau21DDTNomVal * jet_msdcorr_raw)
-                    jets_msdcorr_tau21DDT_jmrDown.append(
-                        jet_pt_jerNomVal * jet_msdcorr_tau21DDT_jmrDownVal *
-                        jmstau21DDTNomVal * jet_msdcorr_raw)
-                    jets_msdcorr_tau21DDT_jmsUp.append(
-                        jet_pt_jerNomVal * jet_msdcorr_tau21DDT_jmrNomVal *
-                        jmstau21DDTUpVal * jet_msdcorr_raw)
-                    jets_msdcorr_tau21DDT_jmsDown.append(
-                        jet_pt_jerNomVal * jet_msdcorr_tau21DDT_jmrNomVal *
-                        jmstau21DDTDownVal * jet_msdcorr_raw)
+                    # jets_msdcorr_tau21DDT_jmrUp.append(
+                    #     jet_pt_jerNomVal * jet_msdcorr_tau21DDT_jmrUpVal *
+                    #     jmstau21DDTNomVal * jet_msdcorr_raw)
+                    # jets_msdcorr_tau21DDT_jmrDown.append(
+                    #     jet_pt_jerNomVal * jet_msdcorr_tau21DDT_jmrDownVal *
+                    #     jmstau21DDTNomVal * jet_msdcorr_raw)
+                    # jets_msdcorr_tau21DDT_jmsUp.append(
+                    #     jet_pt_jerNomVal * jet_msdcorr_tau21DDT_jmrNomVal *
+                    #     jmstau21DDTUpVal * jet_msdcorr_raw)
+                    # jets_msdcorr_tau21DDT_jmsDown.append(
+                    #     jet_pt_jerNomVal * jet_msdcorr_tau21DDT_jmrNomVal *
+                    #     jmstau21DDTDownVal * jet_msdcorr_raw)
 
                     # Restore original jmr_vals in jetSmearer
                     self.jetSmearer.jmr_vals = self.jmrVals
@@ -800,9 +800,9 @@ class fatJetUncertaintiesProducer(Module):
             self.out.fillBranch("%s_msoftdrop_corr_PUPPI" % self.jetBranchName,
                                 jets_msdcorr_corr_PUPPI)
             if not self.isData:
-                self.out.fillBranch(
-                    "%s_msoftdrop_tau21DDT_nom" % self.jetBranchName,
-                    jets_msdcorr_tau21DDT_nom)
+                # self.out.fillBranch(
+                #     "%s_msoftdrop_tau21DDT_nom" % self.jetBranchName,
+                #     jets_msdcorr_tau21DDT_nom)
                 for jerID in self.splitJERIDs:
                     self.out.fillBranch(
                         "%s_msoftdrop_jer%sUp" % (self.jetBranchName, jerID),
@@ -810,14 +810,14 @@ class fatJetUncertaintiesProducer(Module):
                     self.out.fillBranch(
                         "%s_msoftdrop_jer%sDown" % (self.jetBranchName, jerID),
                         jets_msdcorr_jerDown[jerID])
-                    self.out.fillBranch(
-                        "%s_msoftdrop_tau21DDT_jer%sUp" %
-                        (self.jetBranchName, jerID),
-                        jets_msdcorr_tau21DDT_jerUp[jerID])
-                    self.out.fillBranch(
-                        "%s_msoftdrop_tau21DDT_jer%sDown" %
-                        (self.jetBranchName, jerID),
-                        jets_msdcorr_tau21DDT_jerDown[jerID])
+                    # self.out.fillBranch(
+                    #     "%s_msoftdrop_tau21DDT_jer%sUp" %
+                    #     (self.jetBranchName, jerID),
+                    #     jets_msdcorr_tau21DDT_jerUp[jerID])
+                    # self.out.fillBranch(
+                    #     "%s_msoftdrop_tau21DDT_jer%sDown" %
+                    #     (self.jetBranchName, jerID),
+                    #     jets_msdcorr_tau21DDT_jerDown[jerID])
                 self.out.fillBranch("%s_msoftdrop_jmrUp" % self.jetBranchName,
                                     jets_msdcorr_jmrUp)
                 self.out.fillBranch(
@@ -828,18 +828,18 @@ class fatJetUncertaintiesProducer(Module):
                 self.out.fillBranch(
                     "%s_msoftdrop_jmsDown" % self.jetBranchName,
                     jets_msdcorr_jmsDown)
-                self.out.fillBranch(
-                    "%s_msoftdrop_tau21DDT_jmrUp" % self.jetBranchName,
-                    jets_msdcorr_tau21DDT_jmrUp)
-                self.out.fillBranch(
-                    "%s_msoftdrop_tau21DDT_jmrDown" % self.jetBranchName,
-                    jets_msdcorr_tau21DDT_jmrDown)
-                self.out.fillBranch(
-                    "%s_msoftdrop_tau21DDT_jmsUp" % self.jetBranchName,
-                    jets_msdcorr_tau21DDT_jmsUp)
-                self.out.fillBranch(
-                    "%s_msoftdrop_tau21DDT_jmsDown" % self.jetBranchName,
-                    jets_msdcorr_tau21DDT_jmsDown)
+                # self.out.fillBranch(
+                #     "%s_msoftdrop_tau21DDT_jmrUp" % self.jetBranchName,
+                #     jets_msdcorr_tau21DDT_jmrUp)
+                # self.out.fillBranch(
+                #     "%s_msoftdrop_tau21DDT_jmrDown" % self.jetBranchName,
+                #     jets_msdcorr_tau21DDT_jmrDown)
+                # self.out.fillBranch(
+                #     "%s_msoftdrop_tau21DDT_jmsUp" % self.jetBranchName,
+                #     jets_msdcorr_tau21DDT_jmsUp)
+                # self.out.fillBranch(
+                #     "%s_msoftdrop_tau21DDT_jmsDown" % self.jetBranchName,
+                #     jets_msdcorr_tau21DDT_jmsDown)
 
         if not self.isData:
             for jesUncertainty in self.jesUncertainties:
