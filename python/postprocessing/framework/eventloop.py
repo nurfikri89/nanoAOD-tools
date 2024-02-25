@@ -4,7 +4,6 @@ import sys
 import time
 import ROOT
 
-
 class Module(object):
     def __init__(self):
         self.writeHistFile = False

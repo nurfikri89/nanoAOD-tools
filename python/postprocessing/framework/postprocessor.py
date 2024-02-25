@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 from PhysicsTools.NanoAODTools.postprocessing.framework.jobreport import JobReport
 from PhysicsTools.NanoAODTools.postprocessing.framework.preskimming import preSkim
 from PhysicsTools.NanoAODTools.postprocessing.framework.output import FriendOutput, FullOutput
@@ -258,10 +258,8 @@ class PostProcessor:
         print("Total time %.1f sec. to process %i events. Rate = %.1f Hz." % ((time.time() - t0), totEntriesRead, totEntriesRead / (time.time() - t0)))
 
         if self.haddFileName:
-            haddnano = "./haddnano.py" if os.path.isfile(
-                "./haddnano.py") else "haddnano.py"
-            os.system("%s %s %s" %
-                      (haddnano, self.haddFileName, " ".join(outFileNames)))
+            haddnano = "./haddnano.py" if os.path.isfile("./haddnano.py") else "haddnano.py"
+            os.system("%s %s %s" %(haddnano, self.haddFileName, " ".join(outFileNames)))
         if self.jobReport:
             self.jobReport.addOutputFile(self.haddFileName)
             self.jobReport.save()

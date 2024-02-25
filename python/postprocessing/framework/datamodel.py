@@ -30,10 +30,8 @@ class Event:
             self._tree._exprs = {}
             # remove useless warning about EvalInstance()
             import warnings
-            warnings.filterwarnings(action='ignore', category=RuntimeWarning,
-                                    message='creating converter for unknown type "const char\*\*"$')
-            warnings.filterwarnings(action='ignore', category=RuntimeWarning,
-                                    message='creating converter for unknown type "const char\*\[\]"$')
+            warnings.filterwarnings(action='ignore', category=RuntimeWarning, message='creating converter for unknown type "const char\*\*"$')
+            warnings.filterwarnings(action='ignore', category=RuntimeWarning, message='creating converter for unknown type "const char\*\[\]"$')
         if expr not in self._tree._exprs:
             formula = ROOT.TTreeFormula(expr, expr, self._tree)
             if formula.IsInteger():
