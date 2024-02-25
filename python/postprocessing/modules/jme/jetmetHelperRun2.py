@@ -9,10 +9,10 @@ from PhysicsTools.NanoAODTools.postprocessing.modules.jme.fatJetUncertainties im
 # JEC dict
 # https://twiki.cern.ch/twiki/bin/viewauth/CMS/JECDataMC#Recommended_for_MC
 jecVersionsMC = {
-    'UL2016_preVFP': 'Summer19UL16APV_V7_MC',
-    'UL2016': 'Summer19UL16_V7_MC',
-    'UL2017': 'Summer19UL17_V5_MC',
-    'UL2018': 'Summer19UL18_V5_MC',
+    'UL2016_preVFP': 'Summer19UL16APV_V7_MC',#106X_mcRun2_asymptotic_preVFP_v11
+    'UL2016': 'Summer19UL16_V7_MC', #106X_mcRun2_asymptotic_v17
+    'UL2017': 'Summer19UL17_V5_MC', #106X_mc2017_realistic_v10
+    'UL2018': 'Summer19UL18_V5_MC', #106X_upgrade2018_realistic_v15_L1v1
     '2022':   'Summer22_22Sep2023_V2',
     '2022_EE':'Summer22EE_22Sep2023_V2_MC',
 }
@@ -24,11 +24,15 @@ jecVersionsFastSim = {
 }
 
 # https://twiki.cern.ch/twiki/bin/viewauth/CMS/JECDataMC#Recommended_for_Data
+# NOTE: Always check that for a particular year, we must have one entry
+# in "archiveTagsDATA".
 archiveTagsDATA = {
     'UL2016_preVFP': 'Summer19UL16APV_V7_DATA',
-    'UL2016': 'Summer19UL16_V7_DATA',
-    'UL2017': 'Summer19UL17_V5_DATA',
-    'UL2018': 'Summer19UL18_V5_DATA'
+    'UL2016':  'Summer19UL16_V7_DATA',
+    'UL2017':  'Summer19UL17_V5_DATA',
+    'UL2018':  'Summer19UL18_V5_DATA',
+    '2022':    'Summer22_22Sep2023_V2_DATA',
+    '2022_EE': 'Summer22EE_22Sep2023_V2_DATA',
 }
 
 jecVersionsDATA = {
@@ -51,9 +55,9 @@ jecVersionsDATA = {
     'UL2018D': 'Summer19UL18_RunD_V5_DATA',
     '2022C'  : 'Summer22_22Sep2023_RunCD_V2_DATA',
     '2022D'  : 'Summer22_22Sep2023_RunCD_V2_DATA',
-    '2022E'  : 'Summer22EE_22Sep2023_RunE_V2_DATA',
-    '2022F'  : 'Summer22EE_22Sep2023_RunF_V2_DATA',
-    '2022G'  : 'Summer22EE_22Sep2023_RunG_V2_DATA',
+    '2022_EEE': 'Summer22EE_22Sep2023_RunE_V2_DATA',
+    '2022_EEF': 'Summer22EE_22Sep2023_RunF_V2_DATA',
+    '2022_EEG': 'Summer22EE_22Sep2023_RunG_V2_DATA',
 }
 
 # https://twiki.cern.ch/twiki/bin/view/CMS/JetResolution
