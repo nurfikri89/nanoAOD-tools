@@ -1,10 +1,8 @@
-#!/usr/bin/env python
 import os
 from PhysicsTools.NanoAODTools.postprocessing.framework.postprocessor import *
 import sys
 import re
 import PSet
-
 
 def inputFiles():
     print("ARGV: " + str(sys.argv))
@@ -24,7 +22,11 @@ def inputFiles():
             if not tested:
                 print("Testing file open")
                 import ROOT
-                testfile = ROOT.TFile.Open(pfn)
+                testfile = None
+                try:
+                    testfile = ROOT.TFile.Open(pfn)
+                except:
+                    testfile = None
                 if testfile and testfile.IsOpen():
                     print("Test OK")
                     crabFiles[i] = pfn
