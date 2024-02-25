@@ -65,8 +65,7 @@ class jetmetUncertaintiesProducer(Module):
 
         #
         #
-        self.useCorrLib = True
-
+        self.useCorrLib = False
         # --------------------------------------------------------------------
         #
         # Setup JEC
