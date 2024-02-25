@@ -8,17 +8,16 @@ from PhysicsTools.NanoAODTools.postprocessing.modules.jme.fatJetUncertainties im
 
 # JEC dict
 # https://twiki.cern.ch/twiki/bin/viewauth/CMS/JECDataMC#Recommended_for_MC
-jecTagsMC = {
-    '2016': 'Summer16_07Aug2017_V11_MC',
-    '2017': 'Fall17_17Nov2017_V32_MC',
-    '2018': 'Autumn18_V19_MC',
+jecVersionsMC = {
     'UL2016_preVFP': 'Summer19UL16APV_V7_MC',
     'UL2016': 'Summer19UL16_V7_MC',
     'UL2017': 'Summer19UL17_V5_MC',
     'UL2018': 'Summer19UL18_V5_MC',
+    '2022':   'Summer22_22Sep2023_V2',
+    '2022_EE':'Summer22EE_22Sep2023_V2_MC',
 }
 
-jecTagsFastSim = {
+jecVersionsFastSim = {
     '2016': 'Spring16_25nsFastSimV1_MC',
     '2017': 'Fall17_FastSimV1_MC',
     '2018': 'Autumn18_FastSimV1_MC',
@@ -26,32 +25,13 @@ jecTagsFastSim = {
 
 # https://twiki.cern.ch/twiki/bin/viewauth/CMS/JECDataMC#Recommended_for_Data
 archiveTagsDATA = {
-    '2016': 'Summer16_07Aug2017_V11_DATA',
-    '2017': 'Fall17_17Nov2017_V32_DATA',
-    '2018': 'Autumn18_V19_DATA',
     'UL2016_preVFP': 'Summer19UL16APV_V7_DATA',
     'UL2016': 'Summer19UL16_V7_DATA',
     'UL2017': 'Summer19UL17_V5_DATA',
     'UL2018': 'Summer19UL18_V5_DATA'
 }
 
-jecTagsDATA = {
-    '2016B': 'Summer16_07Aug2017BCD_V11_DATA',
-    '2016C': 'Summer16_07Aug2017BCD_V11_DATA',
-    '2016D': 'Summer16_07Aug2017BCD_V11_DATA',
-    '2016E': 'Summer16_07Aug2017EF_V11_DATA',
-    '2016F': 'Summer16_07Aug2017EF_V11_DATA',
-    '2016G': 'Summer16_07Aug2017GH_V11_DATA',
-    '2016H': 'Summer16_07Aug2017GH_V11_DATA',
-    '2017B': 'Fall17_17Nov2017B_V32_DATA',
-    '2017C': 'Fall17_17Nov2017C_V32_DATA',
-    '2017D': 'Fall17_17Nov2017DE_V32_DATA',
-    '2017E': 'Fall17_17Nov2017DE_V32_DATA',
-    '2017F': 'Fall17_17Nov2017F_V32_DATA',
-    '2018A': 'Autumn18_RunA_V19_DATA',
-    '2018B': 'Autumn18_RunB_V19_DATA',
-    '2018C': 'Autumn18_RunC_V19_DATA',
-    '2018D': 'Autumn18_RunD_V19_DATA',
+jecVersionsDATA = {
     'UL2016_preVFPB': 'Summer19UL16APV_RunBCD_V7_DATA',
     'UL2016_preVFPC': 'Summer19UL16APV_RunBCD_V7_DATA',
     'UL2016_preVFPD': 'Summer19UL16APV_RunBCD_V7_DATA',
@@ -69,17 +49,27 @@ jecTagsDATA = {
     'UL2018B': 'Summer19UL18_RunB_V5_DATA',
     'UL2018C': 'Summer19UL18_RunC_V5_DATA',
     'UL2018D': 'Summer19UL18_RunD_V5_DATA',
+    '2022C'  : 'Summer22_22Sep2023_RunCD_V2_DATA',
+    '2022D'  : 'Summer22_22Sep2023_RunCD_V2_DATA',
+    '2022E'  : 'Summer22EE_22Sep2023_RunE_V2_DATA',
+    '2022F'  : 'Summer22EE_22Sep2023_RunF_V2_DATA',
+    '2022G'  : 'Summer22EE_22Sep2023_RunG_V2_DATA',
 }
 
 # https://twiki.cern.ch/twiki/bin/view/CMS/JetResolution
-jerTagsMC = {
-    '2016': 'Summer16_25nsV1_MC',
-    '2017': 'Fall17_V3_MC',
-    '2018': 'Autumn18_V7b_MC',
+jerVersionsMC = {
     'UL2016_preVFP': 'Summer20UL16APV_JRV3_MC',
     'UL2016': 'Summer20UL16_JRV3_MC',
-    'UL2017': 'Summer19UL17_JRV3_MC',# Note: Not specified by JERC group but needed to ensure FatJetUncertainties dont crash for UL17
+    'UL2017': 'Summer19UL17_JRV2_MC',
     'UL2018': 'Summer19UL18_JRV2_MC',
+}
+
+# https://twiki.cern.ch/twiki/bin/view/CMS/JetResolution
+jerAK8VersionsMC = {
+    'UL2016_preVFP': jerVersionsMC['UL2016_preVFP'],
+    'UL2016': jerVersionsMC['UL2016'],
+    'UL2017': 'Summer19UL17_JRV3_MC', # Cannot use JRV2. Missing JER stuff.
+    'UL2018': jerVersionsMC['UL2018'],
 }
 
 # jet mass resolution: https://twiki.cern.ch/twiki/bin/view/CMS/JetWtagging
@@ -93,6 +83,8 @@ jmrValues = {
     'UL2016': [1.00, 1.00, 1.00],  # placeholder
     'UL2017': [1.00, 1.00, 1.00],  # placeholder
     'UL2018': [1.00, 1.00, 1.00],  # placeholder
+    '2022': [1.00, 1.00, 1.00],  # placeholder
+    '2022_EE': [1.00, 1.00, 1.00],  # placeholder
 }
 
 # jet mass scale
@@ -107,8 +99,9 @@ jmsValues = {
     'UL2016': [1.000, 1.000, 1.000],  # placeholder
     'UL2017': [1.000, 1.000, 1.000],  # placeholder
     'UL2018': [1.000, 1.000, 1.000],  # placeholder
-}   
-
+    '2022': [1.000, 1.000, 1.000],  # placeholder
+    '2022_EE': [1.000, 1.000, 1.000],  # placeholder
+}
 
 def createJMECorrector(isMC=True,
                        dataYear=2016,
@@ -120,82 +113,73 @@ def createJMECorrector(isMC=True,
                        applySmearing=True,
                        isFastSim=False,
                        applyHEMfix=False,
-                       splitJER=False,
                        saveMETUncs=['T1', 'T1Smear']):
 
     dataYear = str(dataYear)
 
     if isMC and not isFastSim:
-        jecTag_ = jecTagsMC[dataYear]
+        jecVersion_ = jecVersionsMC[dataYear]
     elif isMC and isFastSim:
-        jecTag_ = jecTagsFastSim[dataYear]
+        jecVersion_ = jecVersionsFastSim[dataYear]
     else:
-        jecTag_ = jecTagsDATA[dataYear + runPeriod]
+        jecVersion_ = jecVersionsDATA[dataYear+runPeriod]
 
-    jmeUncert_ = [x for x in jesUncert.split(",")]
-    jerTag_ = jerTagsMC[dataYear]
+    jecUncertainties_ = [x for x in jesUncert.split(",")]
+    jerVersion_ = jerVersionsMC[dataYear]
+    jerAK8Version_ = jerAK8VersionsMC[dataYear]
     jmrValues_ = jmrValues[dataYear]
     jmsValues_ = jmsValues[dataYear]
     archiveTag_ = archiveTagsDATA[dataYear]
     met_ = metBranchName
-    print('JEC : ' + str(jecTag_) + '\t JER : ' + str(jerTag_))
-    print('MET branch : ' + str(met_))
+    print(f'JEC : {jecVersion_} \t JER : {jerVersion_}')
+    print(f'MET branch : {met_}')
     jmeCorrections = None
     # jme corrections
     if 'AK4' in jetType:
         if isMC:
             jmeCorrections = lambda: jetmetUncertaintiesProducer(
                 era=dataYear,
-                globalTag=jecTag_,
-                jesUncertainties=jmeUncert_,
-                jerTag=jerTag_,
+                jecVersion=jecVersion_,
+                jesUncertainties=jecUncertainties_,
+                jerVersion=jerVersion_,
                 jetType=jetType,
                 metBranchName=met_,
                 applySmearing=applySmearing,
                 applyHEMfix=applyHEMfix,
-                splitJER=splitJER,
                 saveMETUncs=saveMETUncs)
         else:
             jmeCorrections = lambda: jetmetUncertaintiesProducer(
                 era=dataYear,
                 archive=archiveTag_,
-                globalTag=jecTag_,
-                jesUncertainties=jmeUncert_,
-                jerTag=jerTag_,
+                jecVersion=jecVersion_,
+                jesUncertainties=jecUncertainties_,
+                jerTag=jerVersion_,
                 jetType=jetType,
                 metBranchName=met_,
                 isData=True)
     # no MET variations calculated
-    else:
+    elif 'AK8' in jetType:
         if isMC:
             jmeCorrections = lambda: fatJetUncertaintiesProducer(
                 era=dataYear,
-                globalTag=jecTag_,
-                jesUncertainties=jmeUncert_,
-                jetType=jetType,
-                jerTag=jerTag_,
+                jecVersion=jecVersion_,
+                jesUncertainties=jecUncertainties_,
+                jetType="AK8PFPuppi",
+                jerVersion=jerAK8Version_,
                 jmrVals=jmrValues_,
                 jmsVals=jmsValues_,
                 applySmearing=applySmearing,
-                applyHEMfix=applyHEMfix,
-                splitJER=splitJER)
+                applyHEMfix=applyHEMfix)
         else:
             jmeCorrections = lambda: fatJetUncertaintiesProducer(
                 era=dataYear,
                 archive=archiveTag_,
-                globalTag=jecTag_,
-                jesUncertainties=jmeUncert_,
-                jetType=jetType,
-                jerTag=jerTag_,
+                jecVersion=jecVersion_,
+                jesUncertainties=jecUncertainties_,
+                jetType="AK8PFPuppi",
+                jerTag=jerAK8Version_,
                 jmrVals=jmrValues_,
                 jmsVals=jmsValues_,
                 isData=True)
 
     return jmeCorrections
-
-
-# In the main postprocessor script, user has to call the function,
-# e.g for 2016
-#jmeCorrections = createJMECorrector(False, "2016", "B", "Total", True, "AK4PFchs", False)
-# include jmeCorrections() in the list of modules to run.
-###

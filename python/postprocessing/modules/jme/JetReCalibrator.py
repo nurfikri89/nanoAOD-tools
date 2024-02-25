@@ -8,7 +8,7 @@ from PhysicsTools.HeppyCore.utils.deltar import *
 class JetReCalibrator:
     def __init__(
         self,
-        globalTag,
+        jecVersion,
         jetFlavour,
         doResidualJECs,
         jecPath,
@@ -26,7 +26,7 @@ class JetReCalibrator:
         getJec.py there to make the dumps). It will apply the L1,L2,L3 and
         possibly the residual corrections to the jets. If configured to do so,
         it will also compute the type1 MET corrections."""
-        self.globalTag = globalTag
+        self.jecVersion = jecVersion
         self.jetFlavour = jetFlavour
         self.doResidualJECs = doResidualJECs
         self.jecPath = jecPath
@@ -37,36 +37,27 @@ class JetReCalibrator:
         # Make base corrections
         # "%s/src/CMGTools/RootTools/data/jec" % os.environ['CMSSW_BASE'];
         path = os.path.expandvars(jecPath)
-        self.L1JetPar = ROOT.JetCorrectorParameters(
-            "%s/%s_L1FastJet_%s.txt" % (path, globalTag, jetFlavour), "")
-        self.L2JetPar = ROOT.JetCorrectorParameters(
-            "%s/%s_L2Relative_%s.txt" % (path, globalTag, jetFlavour), "")
-        self.L3JetPar = ROOT.JetCorrectorParameters(
-            "%s/%s_L3Absolute_%s.txt" % (path, globalTag, jetFlavour), "")
+        self.L1JetPar = ROOT.JetCorrectorParameters("%s/%s_L1FastJet_%s.txt" % (path, jecVersion, jetFlavour), "")
+        self.L2JetPar = ROOT.JetCorrectorParameters("%s/%s_L2Relative_%s.txt" % (path, jecVersion, jetFlavour), "")
+        self.L3JetPar = ROOT.JetCorrectorParameters("%s/%s_L3Absolute_%s.txt" % (path, jecVersion, jetFlavour), "")
         self.vPar = ROOT.vector(ROOT.JetCorrectorParameters)()
         self.vPar.push_back(self.L1JetPar)
-        if upToLevel >= 2:
-            self.vPar.push_back(self.L2JetPar)
-        if upToLevel >= 3:
-            self.vPar.push_back(self.L3JetPar)
+        if upToLevel >= 2:self.vPar.push_back(self.L2JetPar)
+        if upToLevel >= 3:self.vPar.push_back(self.L3JetPar)
         # Add residuals if needed
         if doResidualJECs:
-            self.ResJetPar = ROOT.JetCorrectorParameters(
-                "%s/%s_L2L3Residual_%s.txt" % (path, globalTag, jetFlavour))
+            self.ResJetPar = ROOT.JetCorrectorParameters("%s/%s_L2L3Residual_%s.txt" % (path, jecVersion, jetFlavour))
             self.vPar.push_back(self.ResJetPar)
         # Step3 (Construct a FactorizedJetCorrector object)
         self.JetCorrector = ROOT.FactorizedJetCorrector(self.vPar)
-        if os.path.exists("%s/%s_Uncertainty_%s.txt" %
-                          (path, globalTag, jetFlavour)):
-            self.JetUncertainty = ROOT.JetCorrectionUncertainty(
-                "%s/%s_Uncertainty_%s.txt" % (path, globalTag, jetFlavour))
+        if os.path.exists("%s/%s_Uncertainty_%s.txt" %(path, jecVersion, jetFlavour)):
+            self.JetUncertainty = ROOT.JetCorrectionUncertainty("%s/%s_Uncertainty_%s.txt" % (path, jecVersion, jetFlavour))
         elif os.path.exists("%s/Uncertainty_FAKE.txt" % path):
-            self.JetUncertainty = ROOT.JetCorrectionUncertainty(
-                "%s/Uncertainty_FAKE.txt" % path)
+            self.JetUncertainty = ROOT.JetCorrectionUncertainty("%s/Uncertainty_FAKE.txt" % path)
         else:
             print(
                 'Missing JEC uncertainty file "%s/%s_Uncertainty_%s.txt", so jet energy uncertainties will not be available'
-                % (path, globalTag, jetFlavour))
+                % (path, jecVersion, jetFlavour))
             self.JetUncertainty = None
         self.separateJetCorrectors = {}
         if self.calculateSeparateCorrections or self.calculateType1METCorrection:
@@ -78,14 +69,12 @@ class JetReCalibrator:
                 self.vParL2 = ROOT.vector(ROOT.JetCorrectorParameters)()
                 for i in [self.L1JetPar, self.L2JetPar]:
                     self.vParL2.push_back(i)
-                self.separateJetCorrectors[
-                    "L1L2"] = ROOT.FactorizedJetCorrector(self.vParL2)
+                self.separateJetCorrectors["L1L2"] = ROOT.FactorizedJetCorrector(self.vParL2)
             if upToLevel >= 3 and self.calculateSeparateCorrections:
                 self.vParL3 = ROOT.vector(ROOT.JetCorrectorParameters)()
                 for i in [self.L1JetPar, self.L2JetPar, self.L3JetPar]:
                     self.vParL3.push_back(i)
-                self.separateJetCorrectors[
-                    "L1L2L3"] = ROOT.FactorizedJetCorrector(self.vParL3)
+                self.separateJetCorrectors["L1L2L3"] = ROOT.FactorizedJetCorrector(self.vParL3)
             if doResidualJECs and self.calculateSeparateCorrections:
                 self.vParL3Res = ROOT.vector(ROOT.JetCorrectorParameters)()
                 for i in [
@@ -93,8 +82,7 @@ class JetReCalibrator:
                         self.ResJetPar
                 ]:
                     self.vParL3Res.push_back(i)
-                self.separateJetCorrectors[
-                    "L1L2L3Res"] = ROOT.FactorizedJetCorrector(self.vParL3Res)
+                self.separateJetCorrectors["L1L2L3Res"] = ROOT.FactorizedJetCorrector(self.vParL3Res)
 
     def getCorrection(self, jet, rho, delta=0, corrector=None):
         if not corrector:
@@ -116,8 +104,7 @@ class JetReCalibrator:
             self.JetUncertainty.setJetEta(jet.eta)
             self.JetUncertainty.setJetPt(corr * jet.pt * (1. - jet.rawFactor))
             try:
-                jet.jetEnergyCorrUncertainty = self.JetUncertainty.getUncertainty(
-                    True)
+                jet.jetEnergyCorrUncertainty = self.JetUncertainty.getUncertainty(True)
             except RuntimeError as r:
                 print(
                     "Caught %s when getting uncertainty for jet of pt %.1f, eta %.2f\n"
