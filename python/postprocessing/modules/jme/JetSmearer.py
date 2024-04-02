@@ -13,7 +13,7 @@ ROOT.PyConfig.IgnoreCommandLineOptions = True
 class JetSmearer(Module):
     def __init__(
             self,
-            globalTag,
+            era,
             jetType="AK4PFchs",
             jerInputFileName="Spring16_25nsV10_MC_PtResolution_AK4PFchs.txt",
             jerUncertaintyInputFileName="Spring16_25nsV10_MC_SF_AK4PFchs.txt",
@@ -29,8 +29,11 @@ class JetSmearer(Module):
         # (the txt files were downloaded from https://github.com/cms-jet/JRDatabase/tree/master/textFiles/ )
         # Text files are now tarred so must extract first
         self.jerInputArchivePath = os.environ['CMSSW_BASE'] + "/src/PhysicsTools/NanoAODTools/data/jme/"
+
         self.jerTag = jerInputFileName[:jerInputFileName.find('_MC_') + len('_MC')]
-        self.jerArchive = tarfile.open(self.jerInputArchivePath + self.jerTag + ".tgz", "r:gz")
+        fileExt = "tgz"
+        if "2022" in era or "2023" in era: fileExt = "tar.gz" # TEMP. Should be re-checked in the future
+        self.jerArchive = tarfile.open(f"{self.jerInputArchivePath}{self.jerTag}.{fileExt}", "r:gz")
         self.jerInputFilePath = tempfile.mkdtemp()
         self.jerArchive.extractall(self.jerInputFilePath)
         self.jerInputFileName = jerInputFileName
@@ -51,9 +54,9 @@ class JetSmearer(Module):
                 print("Load Library '{}'".format(library.replace("lib", "")))
                 ROOT.gSystem.Load(library)
 
-        self.puppiJMRFile = ROOT.TFile.Open(f"{os.environ['CMSSW_BASE']}/src/PhysicsTools/NanoAODTools/data/jme/puppiSoftdropResol.root")
-        self.puppisd_resolution_cen = self.puppiJMRFile.Get("massResolution_0eta1v3")
-        self.puppisd_resolution_for = self.puppiJMRFile.Get("massResolution_1v3eta2v5")
+        # self.puppiJMRFile = ROOT.TFile.Open(f"{os.environ['CMSSW_BASE']}/src/PhysicsTools/NanoAODTools/data/jme/puppiSoftdropResol.root")
+        # self.puppisd_resolution_cen = self.puppiJMRFile.Get("massResolution_0eta1v3")
+        # self.puppisd_resolution_for = self.puppiJMRFile.Get("massResolution_1v3eta2v5")
 
     def beginJob(self):
         # initialize JER scale factors and uncertainties

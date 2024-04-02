@@ -13,7 +13,7 @@ jecVersionsMC = {
     'UL2016': 'Summer19UL16_V7_MC', #106X_mcRun2_asymptotic_v17
     'UL2017': 'Summer19UL17_V5_MC', #106X_mc2017_realistic_v10
     'UL2018': 'Summer19UL18_V5_MC', #106X_upgrade2018_realistic_v15_L1v1
-    '2022'     :'Summer22_22Sep2023_V2',
+    '2022'     :'Summer22_22Sep2023_V2_MC',
     '2022_EE'  :'Summer22EE_22Sep2023_V2_MC',
     '2023'     :'Summer23Prompt23_V1_MC',
     '2023_BPix':'Summer23BPixPrompt23_V1_MC',
@@ -62,19 +62,19 @@ jecVersionsDATA = {
     '2022_EEG': 'Summer22EE_22Sep2023_RunG_V2_DATA',
     '2023Cv123' : 'Summer23Prompt23_RunCv123_V1_DATA',
     '2023Cv4'   : 'Summer23Prompt23_RunCv4_V1_DATA',
-    '2023_BPixD': 'Summer23BPixPrompt23_RunD_V1_DATA.tar.gz',
+    '2023_BPixD': 'Summer23BPixPrompt23_RunD_V1_DATA',
 }
 
 # https://twiki.cern.ch/twiki/bin/view/CMS/JetResolution
 jerVersionsMC = {
     'UL2016_preVFP': 'Summer20UL16APV_JRV3_MC',
-    'UL2016' : 'Summer20UL16_JRV3_MC',
-    'UL2017' : 'Summer19UL17_JRV2_MC',
-    'UL2018' : 'Summer19UL18_JRV2_MC',
-    '2022'   : 'Summer22_22Sep2023_JR',
-    '2022_EE': 'Summer22EE_22Sep2023_JR',
-    '2023': 'Summer22EE_22Sep2023_JR', # Temporary: Shouldn't use them
-    '2023_BPix': 'Summer22EE_22Sep2023_JR', # Temporary: Shouldn't use them
+    'UL2016'   : 'Summer20UL16_JRV3_MC',
+    'UL2017'   : 'Summer19UL17_JRV2_MC',
+    'UL2018'   : 'Summer19UL18_JRV2_MC',
+    '2022'     : 'Summer22_22Sep2023_JRV1_MC',
+    '2022_EE'  : 'Summer22EE_22Sep2023_JRV1_MC',
+    '2023'     : 'Summer22EE_22Sep2023_JRV1_MC', # Temporary: Shouldn't use them
+    '2023_BPix': 'Summer22EE_22Sep2023_JRV1_MC', # Temporary: Shouldn't use them
 }
 
 # https://twiki.cern.ch/twiki/bin/view/CMS/JetResolution
@@ -83,6 +83,11 @@ jerAK8VersionsMC = {
     'UL2016': jerVersionsMC['UL2016'],
     'UL2017': 'Summer19UL17_JRV3_MC', # Cannot use JRV2. Missing JER stuff.
     'UL2018': jerVersionsMC['UL2018'],
+    '2022': jerVersionsMC['2022'],
+    '2022_EE': jerVersionsMC['2022_EE'],
+    '2023': jerVersionsMC['2023'],
+    '2023_BPix': jerVersionsMC['2023_BPix'],
+
 }
 
 # jet mass resolution: https://twiki.cern.ch/twiki/bin/view/CMS/JetWtagging
@@ -98,6 +103,8 @@ jmrValues = {
     'UL2018': [1.00, 1.00, 1.00],  # placeholder
     '2022': [1.00, 1.00, 1.00],  # placeholder
     '2022_EE': [1.00, 1.00, 1.00],  # placeholder
+    '2023': [1.00, 1.00, 1.00],  # placeholder
+    '2023_BPix': [1.00, 1.00, 1.00],  # placeholder
 }
 
 # jet mass scale
@@ -114,6 +121,8 @@ jmsValues = {
     'UL2018': [1.000, 1.000, 1.000],  # placeholder
     '2022': [1.000, 1.000, 1.000],  # placeholder
     '2022_EE': [1.000, 1.000, 1.000],  # placeholder
+    '2023': [1.000, 1.000, 1.000],  # placeholder
+    '2023_BPix': [1.000, 1.000, 1.000],  # placeholder
 }
 
 def createJMECorrector(isMC=True,
@@ -166,7 +175,6 @@ def createJMECorrector(isMC=True,
                 archive=archiveTag_,
                 jecVersion=jecVersion_,
                 jesUncertainties=jecUncertainties_,
-                jerTag=jerVersion_,
                 jetType=jetType,
                 metBranchName=met_,
                 isData=True)
@@ -190,7 +198,6 @@ def createJMECorrector(isMC=True,
                 jecVersion=jecVersion_,
                 jesUncertainties=jecUncertainties_,
                 jetType="AK8PFPuppi",
-                jerTag=jerAK8Version_,
                 jmrVals=jmrValues_,
                 jmsVals=jmsValues_,
                 isData=True)

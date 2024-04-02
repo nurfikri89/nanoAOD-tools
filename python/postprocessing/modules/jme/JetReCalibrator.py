@@ -48,6 +48,7 @@ class JetReCalibrator:
         if doResidualJECs:
             self.ResJetPar = ROOT.JetCorrectorParameters("%s/%s_L2L3Residual_%s.txt" % (path, jecVersion, jetFlavour))
             self.vPar.push_back(self.ResJetPar)
+
         # Step3 (Construct a FactorizedJetCorrector object)
         self.JetCorrector = ROOT.FactorizedJetCorrector(self.vPar)
         if os.path.exists("%s/%s_Uncertainty_%s.txt" %(path, jecVersion, jetFlavour)):
