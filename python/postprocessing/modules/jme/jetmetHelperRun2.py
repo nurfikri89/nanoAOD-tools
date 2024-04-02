@@ -13,8 +13,10 @@ jecVersionsMC = {
     'UL2016': 'Summer19UL16_V7_MC', #106X_mcRun2_asymptotic_v17
     'UL2017': 'Summer19UL17_V5_MC', #106X_mc2017_realistic_v10
     'UL2018': 'Summer19UL18_V5_MC', #106X_upgrade2018_realistic_v15_L1v1
-    '2022':   'Summer22_22Sep2023_V2',
-    '2022_EE':'Summer22EE_22Sep2023_V2_MC',
+    '2022'     :'Summer22_22Sep2023_V2',
+    '2022_EE'  :'Summer22EE_22Sep2023_V2_MC',
+    '2023'     :'Summer23Prompt23_V1_MC',
+    '2023_BPix':'Summer23BPixPrompt23_V1_MC',
 }
 
 jecVersionsFastSim = {
@@ -58,14 +60,21 @@ jecVersionsDATA = {
     '2022_EEE': 'Summer22EE_22Sep2023_RunE_V2_DATA',
     '2022_EEF': 'Summer22EE_22Sep2023_RunF_V2_DATA',
     '2022_EEG': 'Summer22EE_22Sep2023_RunG_V2_DATA',
+    '2023Cv123' : 'Summer23Prompt23_RunCv123_V1_DATA',
+    '2023Cv4'   : 'Summer23Prompt23_RunCv4_V1_DATA',
+    '2023_BPixD': 'Summer23BPixPrompt23_RunD_V1_DATA.tar.gz',
 }
 
 # https://twiki.cern.ch/twiki/bin/view/CMS/JetResolution
 jerVersionsMC = {
     'UL2016_preVFP': 'Summer20UL16APV_JRV3_MC',
-    'UL2016': 'Summer20UL16_JRV3_MC',
-    'UL2017': 'Summer19UL17_JRV2_MC',
-    'UL2018': 'Summer19UL18_JRV2_MC',
+    'UL2016' : 'Summer20UL16_JRV3_MC',
+    'UL2017' : 'Summer19UL17_JRV2_MC',
+    'UL2018' : 'Summer19UL18_JRV2_MC',
+    '2022'   : 'Summer22_22Sep2023_JR',
+    '2022_EE': 'Summer22EE_22Sep2023_JR',
+    '2023': 'Summer22EE_22Sep2023_JR', # Temporary: Shouldn't use them
+    '2023_BPix': 'Summer22EE_22Sep2023_JR', # Temporary: Shouldn't use them
 }
 
 # https://twiki.cern.ch/twiki/bin/view/CMS/JetResolution
