@@ -4,7 +4,11 @@ import sys
 import re
 import PSet
 
-def inputFiles():
+def inputFiles(useXROOTDT2HIP=False):
+    XROOTD_REDIRECTOR="root://cms-xrd-global.cern.ch/"
+    if useXROOTDT2HIP:
+        XROOTD_REDIRECTOR="root://hip-cms-se.csc.fi/"
+
     print("ARGV: " + str(sys.argv))
     JobNumber = sys.argv[1]
     crabFiles = PSet.process.source.fileNames
@@ -34,15 +38,13 @@ def inputFiles():
                     # tested=True
                 else:
                     print("Test open failed, forcing AAA")
-                    crabFiles[i] = "root://cms-xrd-global.cern.ch/" + \
-                        crabFiles[i]
+                    crabFiles[i] = XROOTD_REDIRECTOR + crabFiles[i]
                     forceaaa = True
             else:
                 crabFiles[i] = pfn
-
         else:
             print("Data is not local, using AAA/xrootd")
-            crabFiles[i] = "root://cms-xrd-global.cern.ch/" + crabFiles[i]
+            crabFiles[i] = XROOTD_REDIRECTOR + crabFiles[i]
     return crabFiles
 
 
