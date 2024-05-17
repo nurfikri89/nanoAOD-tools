@@ -100,6 +100,10 @@ class jetmetUncertaintiesProducer(Module):
             # script exit)
             fileExt = "tgz"
             if "2022" in era or "2023" in era: fileExt = "tar.gz" # TEMP. Should be re-checked in the future
+            if not archive:
+                print(f"Open tarfile {self.jesInputArchivePath}{jecVersion}.{fileExt}")
+            else:
+                print(f"Open tarfile {self.jesInputArchivePath}{archive}.{fileExt}")
             self.jesArchive = tarfile.open(f"{self.jesInputArchivePath}{jecVersion}.{fileExt}", "r:gz") if not archive else tarfile.open(f"{self.jesInputArchivePath}{archive}.{fileExt}", "r:gz")
             self.jesInputFilePath = tempfile.mkdtemp()
             self.jesArchive.extractall(self.jesInputFilePath)
