@@ -35,6 +35,9 @@ archiveTagsDATA = {
     'UL2018':  'Summer19UL18_V5_DATA',
     '2022':    'Summer22_22Sep2023_V2_DATA',
     '2022_EE': 'Summer22EE_22Sep2023_V2_DATA',
+    '2023Cv123': 'Summer23Prompt23_RunCv123_V1_DATA',
+    '2023Cv4':   'Summer23Prompt23_RunCv4_V1_DATA',
+    '2023_BPix': 'Summer23BPixPrompt23_RunD_V1_DATA',
 }
 
 jecVersionsDATA = {
@@ -73,8 +76,8 @@ jerVersionsMC = {
     'UL2018'   : 'Summer19UL18_JRV2_MC',
     '2022'     : 'Summer22_22Sep2023_JRV1_MC',
     '2022_EE'  : 'Summer22EE_22Sep2023_JRV1_MC',
-    '2023'     : 'Summer22EE_22Sep2023_JRV1_MC', # Temporary: Shouldn't use them
-    '2023_BPix': 'Summer22EE_22Sep2023_JRV1_MC', # Temporary: Shouldn't use them
+    '2023'     : 'Summer23Prompt23_RunCv1234_JRV1_MC',
+    '2023_BPix': 'Summer23BPixPrompt23_RunD_JRV1_MC',
 }
 
 # https://twiki.cern.ch/twiki/bin/view/CMS/JetResolution
@@ -151,7 +154,10 @@ def createJMECorrector(isMC=True,
     jerAK8Version_ = jerAK8VersionsMC[dataYear]
     jmrValues_ = jmrValues[dataYear]
     jmsValues_ = jmsValues[dataYear]
-    archiveTag_ = archiveTagsDATA[dataYear]
+    if dataYear in archiveTagsDATA:
+        archiveTag_ = archiveTagsDATA[dataYear]
+    elif dataYear+runPeriod in archiveTagsDATA:
+        archiveTag_ = archiveTagsDATA[dataYear+runPeriod]
     met_ = metBranchName
     print(f'JEC : {jecVersion_} \t JER : {jerVersion_}')
     print(f'MET branch : {met_}')
