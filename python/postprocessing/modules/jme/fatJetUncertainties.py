@@ -44,6 +44,8 @@ class fatJetUncertaintiesProducer(Module):
         else:
             raise ValueError(f"ERROR: Invalid jet type = '{jetType}'!")
         self.rhoBranchName = "fixedGridRhoFastjetAll"
+        if "2022" in era or "2023" in era:
+            self.rhoBranchName = "Rho_fixedGridRhoFastjetAll" # TEMP. Should be re-checked in the future
         self.lenVar = "n" + self.jetBranchName
         self.lenVarSubjets = "n" + self.subJetBranchName
 
@@ -55,10 +57,17 @@ class fatJetUncertaintiesProducer(Module):
         self.jesUncertainties = jesUncertainties
         # read jet energy scale (JES) uncertainties
         # (downloaded from https://twiki.cern.ch/twiki/bin/view/CMS/JECDataMC )
-        self.jesInputArchivePath =  f"{os.environ['CMSSW_BASE']}/src/PhysicsTools/NanoAODTools/data/jme/"
+        self.jesInputArchivePath = f"{os.environ['CMSSW_BASE']}/src/PhysicsTools/NanoAODTools/data/jme/"
         # Text files are now tarred so must extract first into temporary
-        # directory (gets deleted during python memory management at script exit)
-        self.jesArchive = tarfile.open(f"{self.jesInputArchivePath}{jecVersion}.tgz", "r:gz") if not archive else tarfile.open(f"{self.jesInputArchivePath}{archive}.tgz", "r:gz")
+        # directory (gets deleted during python memory management at
+        # script exit)
+        fileExt = "tgz"
+        if "2022" in era or "2023" in era: fileExt = "tar.gz" # TEMP. Should be re-checked in the future
+        if not archive:
+            print(f"Open tarfile {self.jesInputArchivePath}{jecVersion}.{fileExt}")
+        else:
+            print(f"Open tarfile {self.jesInputArchivePath}{archive}.{fileExt}")
+        self.jesArchive = tarfile.open(f"{self.jesInputArchivePath}{jecVersion}.{fileExt}", "r:gz") if not archive else tarfile.open(f"{self.jesInputArchivePath}{archive}.{fileExt}", "r:gz")
         self.jesInputFilePath = tempfile.mkdtemp()
         self.jesArchive.extractall(self.jesInputFilePath)
 
