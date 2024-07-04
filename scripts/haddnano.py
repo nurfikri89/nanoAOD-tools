@@ -1,13 +1,18 @@
-#!/bin/env python3
-import ROOT
-import numpy
+#!/usr/bin/env -S python3 -u
 import sys
+import numpy
+import ROOT
+ROOT.gROOT.SetBatch()
+
+#Default in ROOT is 100GB, Set to 200GB
+#
+# ROOT.TTree.SetMaxTreeSize(200000000000)
 
 if len(sys.argv) < 3:
     print("Syntax: haddnano.py out.root input1.root input2.root ...")
+
 ofname = sys.argv[1]
 files = sys.argv[2:]
-
 
 def zeroFill(tree, brName, brObj, allowNonBool=False):
     # typename: (numpy type code, root type code)
@@ -20,14 +25,12 @@ def zeroFill(tree, brName, brObj, allowNonBool=False):
         if brType not in branch_type_dict:
             raise RuntimeError('Impossible to backfill branch of type %s' % brType)
         buff = numpy.zeros(1, dtype=numpy.dtype(branch_type_dict[brType][0]))
-        b = tree.Branch(brName, buff, brName + "/" +
-                        branch_type_dict[brType][1])
+        b = tree.Branch(brName, buff, brName + "/" +branch_type_dict[brType][1])
         # be sure we do not trigger flushing
         b.SetBasketSize(tree.GetEntries() * 2)
         for x in range(0, tree.GetEntries()):
             b.Fill()
         b.ResetAddress()
-
 
 fileHandles = []
 goFast = True
@@ -37,6 +40,7 @@ for fn in files:
     if fileHandles[-1].GetCompressionSettings() != fileHandles[0].GetCompressionSettings():
         goFast = False
         print("Disabling fast merging as inputs have different compressions")
+
 of = ROOT.TFile(ofname, "recreate")
 if goFast:
     of.SetCompressionSettings(fileHandles[0].GetCompressionSettings())
@@ -68,8 +72,7 @@ for e in fileHandles[0].GetListOfKeys():
         inputs.Add(otherObj)
         if isTree and obj.GetName() == 'Events':
             otherObj.SetAutoFlush(0)
-            otherBranches = set([x.GetName()
-                                 for x in otherObj.GetListOfBranches()])
+            otherBranches = set([x.GetName() for x in otherObj.GetListOfBranches()])
             missingBranches = list(branchNames - otherBranches)
             additionalBranches = list(otherBranches - branchNames)
             print("missing: " + str(missingBranches) + "\n Additional: " + str(additionalBranches))
@@ -83,20 +86,17 @@ for e in fileHandles[0].GetListOfKeys():
             # merge immediately for trees
         if isTree and obj.GetName() == 'Runs':
             otherObj.SetAutoFlush(0)
-            otherBranches = set([x.GetName()
-                                 for x in otherObj.GetListOfBranches()])
+            otherBranches = set([x.GetName() for x in otherObj.GetListOfBranches()])
             missingBranches = list(branchNames - otherBranches)
             additionalBranches = list(otherBranches - branchNames)
             print("missing: " + str(missingBranches) + "\n Additional: " + str(additionalBranches))
             for br in missingBranches:
                 # fill "Other"
-                zeroFill(otherObj, br, obj.GetListOfBranches(
-                ).FindObject(br), allowNonBool=True)
+                zeroFill(otherObj, br, obj.GetListOfBranches().FindObject(br), allowNonBool=True)
             for br in additionalBranches:
                 # fill main
                 branchNames.add(br)
-                zeroFill(obj, br, otherObj.GetListOfBranches(
-                ).FindObject(br), allowNonBool=True)
+                zeroFill(obj, br, otherObj.GetListOfBranches().FindObject(br), allowNonBool=True)
             # merge immediately for trees
         if isTree:
             obj.Merge(inputs, "fast" if goFast else "")
@@ -117,3 +117,10 @@ for e in fileHandles[0].GetListOfKeys():
         obj.Write()
     else:
         print("Cannot handle " + str(obj.IsA().GetName()))
+
+print("haddnano.py: Listing content of final file:")
+of.ls()
+
+print("haddnano.py: Closing final file:")
+of.Close()
+
