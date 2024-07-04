@@ -117,7 +117,7 @@ class PostProcessor:
             print("Will write selected trees to " + self.outputDir)
             if not self.justcount:
                 if not os.path.exists(self.outputDir):
-                    os.system("mkdir -p " + self.outputDir)
+                    subprocess.call("mkdir -p " + self.outputDir, shell=True)
         else:
             compressionLevel = 0
 
@@ -200,10 +200,8 @@ class PostProcessor:
 
             # prepare output file
             if not self.noOut:
-                outFileName = os.path.join(self.outputDir, os.path.basename(
-                    fname).replace(".root", outpostfix + ".root"))
-                outFile = ROOT.TFile.Open(
-                    outFileName, "RECREATE", "", compressionLevel)
+                outFileName = os.path.join(self.outputDir, os.path.basename(fname).replace(".root", outpostfix + ".root"))
+                outFile = ROOT.TFile.Open(outFileName, "RECREATE", "", compressionLevel)
                 outFileNames.append(outFileName)
                 if compressionLevel:
                     outFile.SetCompressionAlgorithm(compressionAlgo)
@@ -259,7 +257,8 @@ class PostProcessor:
 
         if self.haddFileName:
             haddnano = "./haddnano.py" if os.path.isfile("./haddnano.py") else "haddnano.py"
-            os.system("%s %s %s" %(haddnano, self.haddFileName, " ".join(outFileNames)))
+            subprocess.call("%s %s %s" %(haddnano, self.haddFileName, " ".join(outFileNames)), shell=True)
+
         if self.jobReport:
             self.jobReport.addOutputFile(self.haddFileName)
             self.jobReport.save()
