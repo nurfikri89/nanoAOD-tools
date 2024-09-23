@@ -17,6 +17,7 @@ jecVersionsMC = {
     '2022_EE'  :'Summer22EE_22Sep2023_V2_MC',
     '2023'     :'Summer23Prompt23_V1_MC',
     '2023_BPix':'Summer23BPixPrompt23_V1_MC',
+    '2024':     'Winter24Prompt24_V5M_MC',
 }
 
 jecVersionsFastSim = {
@@ -38,6 +39,7 @@ archiveTagsDATA = {
     '2023Cv123': 'Summer23Prompt23_RunCv123_V1_DATA',
     '2023Cv4':   'Summer23Prompt23_RunCv4_V1_DATA',
     '2023_BPix': 'Summer23BPixPrompt23_RunD_V1_DATA',
+    '2024':      'Winter24Prompt24_RunBCDEF_V5M_DATA',
 }
 
 jecVersionsDATA = {
@@ -66,6 +68,12 @@ jecVersionsDATA = {
     '2023Cv123' : 'Summer23Prompt23_RunCv123_V1_DATA',
     '2023Cv4'   : 'Summer23Prompt23_RunCv4_V1_DATA',
     '2023_BPixD': 'Summer23BPixPrompt23_RunD_V1_DATA',
+    '2024B':   'Winter24Prompt24_RunBCD_V5M_DATA',
+    '2024C':   'Winter24Prompt24_RunBCD_V5M_DATA',
+    '2024D':   'Winter24Prompt24_RunBCD_V5M_DATA',
+    '2024Ev1': 'Winter24Prompt24_RunE_V5M_DATA',
+    '2024Ev2': 'Winter24Prompt24_RunE_V5M_DATA',
+    '2024F':   'Winter24Prompt24_RunF_V5M_DATA',
 }
 
 # https://twiki.cern.ch/twiki/bin/view/CMS/JetResolution
@@ -78,6 +86,7 @@ jerVersionsMC = {
     '2022_EE'  : 'Summer22EE_22Sep2023_JRV1_MC',
     '2023'     : 'Summer23Prompt23_RunCv1234_JRV1_MC',
     '2023_BPix': 'Summer23BPixPrompt23_RunD_JRV1_MC',
+    '2024'     : 'Summer23BPixPrompt23_RunD_JRV1_MC',#TEMP Must not use it
 }
 
 # https://twiki.cern.ch/twiki/bin/view/CMS/JetResolution
@@ -90,7 +99,7 @@ jerAK8VersionsMC = {
     '2022_EE': jerVersionsMC['2022_EE'],
     '2023': jerVersionsMC['2023'],
     '2023_BPix': jerVersionsMC['2023_BPix'],
-
+    '2024': jerVersionsMC['2023_BPix'],
 }
 
 # jet mass resolution: https://twiki.cern.ch/twiki/bin/view/CMS/JetWtagging
@@ -108,6 +117,7 @@ jmrValues = {
     '2022_EE': [1.00, 1.00, 1.00],  # placeholder
     '2023': [1.00, 1.00, 1.00],  # placeholder
     '2023_BPix': [1.00, 1.00, 1.00],  # placeholder
+    '2024': [1.00, 1.00, 1.00],  # placeholder
 }
 
 # jet mass scale
@@ -126,6 +136,7 @@ jmsValues = {
     '2022_EE': [1.000, 1.000, 1.000],  # placeholder
     '2023': [1.000, 1.000, 1.000],  # placeholder
     '2023_BPix': [1.000, 1.000, 1.000],  # placeholder
+    '2024': [1.000, 1.000, 1.000],  # placeholder
 }
 
 def createJMECorrector(isMC=True,

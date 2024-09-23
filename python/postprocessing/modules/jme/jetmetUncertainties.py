@@ -39,7 +39,7 @@ class jetmetUncertaintiesProducer(Module):
         self.splitJERIDs = [""]  # "empty" ID for the overall JER
         self.metBranchName = metBranchName
         self.rhoBranchName = "fixedGridRhoFastjetAll"
-        if "2022" in era or "2023" in era:
+        if "2022" in era or "2023" in era or "2024" in era:
             self.rhoBranchName = "Rho_fixedGridRhoFastjetAll" # TEMP. Should be re-checked in the future
 
         # --------------------------------------------------------------------
@@ -99,7 +99,7 @@ class jetmetUncertaintiesProducer(Module):
             # directory (gets deleted during python memory management at
             # script exit)
             fileExt = "tgz"
-            if "2022" in era or "2023" in era: fileExt = "tar.gz" # TEMP. Should be re-checked in the future
+            if "2022" in era or "2023" in era or "2024" in era: fileExt = "tar.gz" # TEMP. Should be re-checked in the future
             if not archive:
                 print(f"Open tarfile {self.jesInputArchivePath}{jecVersion}.{fileExt}")
             else:
@@ -167,26 +167,27 @@ class jetmetUncertaintiesProducer(Module):
         self.unclEnThreshold = 15.
 
     def beginJob(self):
-        if not self.useCorrLib:
-            print(f"Loading jet energy scale (JES) uncertainties from file {os.path.join(self.jesInputFilePath,self.jesUncertaintyInputFileName)}")
-            self.jesUncertainty = {}
-            # implementation didn't seem to work for factorized JEC,
-            # try again another way
-            for jesUncertainty in self.jesUncertainties:
-                jesUncertainty_label = jesUncertainty
-                if jesUncertainty == "Total" and (len(self.jesUncertainties) == 1 or (len(self.jesUncertainties) == 2 and "HEMIssue" in self.jesUncertainties)):
-                    jesUncertainty_label = ''
-                if jesUncertainty != "HEMIssue":
-                    pars = ROOT.JetCorrectorParameters(os.path.join(self.jesInputFilePath,self.jesUncertaintyInputFileName),jesUncertainty_label)
-                    self.jesUncertainty[jesUncertainty] = ROOT.JetCorrectionUncertainty(pars)
-        else:
-            self.jecTool.beginJob()
-
-        if self.applySmearing:
-            if self.useCorrLib:
-                self.jerTool.beginJob()
+        if not(self.isData):
+            if not self.useCorrLib:
+                print(f"Loading jet energy scale (JES) uncertainties from file {os.path.join(self.jesInputFilePath,self.jesUncertaintyInputFileName)}")
+                self.jesUncertainty = {}
+                # implementation didn't seem to work for factorized JEC,
+                # try again another way
+                for jesUncertainty in self.jesUncertainties:
+                    jesUncertainty_label = jesUncertainty
+                    if jesUncertainty == "Total" and (len(self.jesUncertainties) == 1 or (len(self.jesUncertainties) == 2 and "HEMIssue" in self.jesUncertainties)):
+                        jesUncertainty_label = ''
+                    if jesUncertainty != "HEMIssue":
+                        pars = ROOT.JetCorrectorParameters(os.path.join(self.jesInputFilePath,self.jesUncertaintyInputFileName),jesUncertainty_label)
+                        self.jesUncertainty[jesUncertainty] = ROOT.JetCorrectionUncertainty(pars)
             else:
-                self.jetSmearer.beginJob()
+                self.jecTool.beginJob()
+
+            if self.applySmearing:
+                if self.useCorrLib:
+                    self.jerTool.beginJob()
+                else:
+                    self.jetSmearer.beginJob()
 
     def endJob(self):
         if self.applySmearing:
